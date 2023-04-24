@@ -1,0 +1,7 @@
+.card__align {
+  max-width: 246px;
+  display: flex;
+  margin: 21px 20px 21px 21px;
+  justify-content: space-between;
+}
+
