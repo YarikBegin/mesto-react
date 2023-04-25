@@ -1,10 +1,10 @@
 import React from "react";
 
-function Footer () {
+function Footer() {
   return (
     <footer className="footer">
-        <p className="footer__copyright">&#169; 2020 Mesto Russia</p>
-      </footer>
+      <p className="footer__copyright">&#169; 2020 Mesto Russia</p>
+    </footer>
   )
 }
 

@@ -3,7 +3,7 @@ class Api {
     this.url = url;
     this.headers = headers;
   }
-  _checkResult (res) {
+  _checkResult(res) {
     return res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`);
   }
   getUserInform() {
@@ -37,7 +37,7 @@ class Api {
       }),
     })
       .then(this._checkResult)
-      .catch(err => console.log(err));
+
   }
   deleteCard(id) {
     return fetch(`${this.url}/cards/${id}`, {
@@ -45,7 +45,7 @@ class Api {
       headers: this.headers,
     })
       .then(this._checkResult)
-      .catch(err => console.log(err));
+
   }
   toogleStateLike(id, state) {
     return fetch(`${this.url}/cards/${id}/likes`, {
@@ -53,7 +53,7 @@ class Api {
       headers: this.headers,
     })
       .then(this._checkResult)
-      .catch(err => console.log(err));
+
   }
   editProfileAvatar({ link }) {
     return fetch(`${this.url}/users/me/avatar`, {
@@ -64,7 +64,7 @@ class Api {
       }),
     })
       .then(this._checkResult)
-      .catch(err => console.log(err));
+
   }
 }
 

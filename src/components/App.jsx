@@ -46,7 +46,7 @@ function App() {
         onCardClick={handleCardClick}
       />
       <Footer />
-{/* Модальное окно редактирования профиля */}
+      {/* Модальное окно редактирования профиля */}
       <PopupWithForm
         name='edit'
         title='Редактировать профиль'
@@ -76,19 +76,19 @@ function App() {
         children={
           <>
             <label className="popup__field">
-                <input type="text" required className="popup__input popup__input_data_image" placeholder="Название"
-                  name="name" id="input-image" minLength="2" maxLength="30" />
-                <span className="popup__input-error input-image-error"></span>
-              </label>
-              <label className="popup__field">
-                <input type="url" required className="popup__input popup__input_data_url" placeholder="Ссылка на картинку"
-                  name="link" id="input-url-newcard" />
-                <span className="popup__input-error input-url-newcard-error"></span>
-              </label>
+              <input type="text" required className="popup__input popup__input_data_image" placeholder="Название"
+                name="name" id="input-image" minLength="2" maxLength="30" />
+              <span className="popup__input-error input-image-error"></span>
+            </label>
+            <label className="popup__field">
+              <input type="url" required className="popup__input popup__input_data_url" placeholder="Ссылка на картинку"
+                name="link" id="input-url-newcard" />
+              <span className="popup__input-error input-url-newcard-error"></span>
+            </label>
           </>
         }
-        />
-        {/* <!--Модальное окно редактирования аватара--> */}
+      />
+      {/* <!--Модальное окно редактирования аватара--> */}
       <PopupWithForm
         name='avatar'
         title='Обновить аватар'
@@ -96,23 +96,23 @@ function App() {
         onClose={closeAllPopups}
         children={
           <label className="popup__field">
-                <input type="url" required className="popup__input popup__input_data_avatar" placeholder="Ссылка на аватар"
-                  name="link" id="input-url-avatar" />
-                <span className="popup__input-error input-url-avatar-error"></span>
-              </label>
+            <input type="url" required className="popup__input popup__input_data_avatar" placeholder="Ссылка на аватар"
+              name="link" id="input-url-avatar" />
+            <span className="popup__input-error input-url-avatar-error"></span>
+          </label>
         }
-        />
+      />
       {/* <!--Модальное окно удаления карточки--> */}
-        <PopupWithForm
+      <PopupWithForm
         name='delete'
         title='Вы уверены?'
         isOpen={false}
-        />
+      />
       {/* Модальное окно увеличение фото карточки */}
       <ImagePopup
         card={selectedCard}
         onClose={closeAllPopups}
-        />
+      />
     </div>
 
   );
