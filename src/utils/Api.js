@@ -1,70 +1,55 @@
 class Api {
   constructor({ url, headers }) {
-    this.url = url;
-    this.headers = headers;
+    this._url = url;
+    this._headers = headers;
   }
   _checkResult(res) {
     return res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`);
   }
-  getUserInform() {
-    return fetch(`${this.url}/users/me`, { headers: this.headers })
-      .then(this._checkResult)
+  _fetch(path, method, data) {
+    let body = data;
+    if((method === 'PATCH' || method === 'POST') && data) {
+      body = JSON.stringify(data);
+    }
 
+    return fetch(this._url + path, {
+      method,
+      headers: this._headers,
+      body,
+    }).then(this._checkResult);
+  }
+  getUserInform() {
+    return this._fetch(`/users/me`, 'GET');
   }
   getInitialCards() {
-    return fetch(`${this.url}/cards`, { headers: this.headers })
-      .then(this._checkResult)
-
+    return this._fetch('/cards', 'GET');
   }
-  editProfile({ name, job }) {
-    return fetch(`${this.url}/users/me`, {
-      method: 'PATCH',
-      headers: this.headers,
-      body: JSON.stringify({
-        name: name,
-        about: job,
-      }),
-    })
-      .then(this._checkResult)
+  setUserInfo(data) {
+    return this._fetch('/users/me', 'PATCH', data);
   }
-  addNewCard({ name, link }) {
-    return fetch(`${this.url}/cards`, {
-      method: 'POST',
-      headers: this.headers,
-      body: JSON.stringify({
-        name: name,
-        link: link,
-      }),
-    })
-      .then(this._checkResult)
-
+  addNewCard(data) {
+    return this._fetch('/cards', 'POST', data);
   }
   deleteCard(id) {
-    return fetch(`${this.url}/cards/${id}`, {
-      method: 'DELETE',
-      headers: this.headers,
-    })
-      .then(this._checkResult)
-
+    return this._fetch(`/cards/${id}`, 'DELETE');
   }
-  toogleStateLike(id, state) {
-    return fetch(`${this.url}/cards/${id}/likes`, {
-      method: state,
-      headers: this.headers,
-    })
-      .then(this._checkResult)
-
+  likeCard(id) {
+    return this._fetch(`/cards/likes/${id}`, 'PUT');
   }
-  editProfileAvatar({ link }) {
-    return fetch(`${this.url}/users/me/avatar`, {
-      method: 'PATCH',
-      headers: this.headers,
-      body: JSON.stringify({
-        avatar: link,
-      }),
-    })
-      .then(this._checkResult)
-
+  dislikeCard(id) {
+    return this._fetch(`/cards/likes/${id}`, 'DELETE');
+  }
+  changeLikeCardStatus(id, hasLike) {
+    if (!hasLike) {
+      return api.likeCard(id);
+    }
+    return api.dislikeCard(id);
+  }
+  setUserAvatar(data) {
+    return this._fetch(`/users/me/avatar`, 'PATCH', data);
+  }
+  getAllData() {
+    return Promise.all([this.getUserInform(), this.getInitialCards()]);
   }
 }
 
